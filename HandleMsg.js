@@ -255,7 +255,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 		const StickerMetadatacrop = { author: authorstc, pack: packstc, keepScale: false }
 
 		// [IDENTIFY]
-		const ownerNumber = "628xx@c.us"
+		const ownerNumber = "16106999265@c.us"
 		const errorImg = "https://i.ibb.co/DYLd6fk/baukrysie.jpg"
 		const isOwnerBot = ownerNumber.includes(pengirim)
 		const isOwner = ownerNumber.includes(pengirim)
@@ -285,7 +285,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 			} else {
 				var pfp = ras
 			}
-			urbae.reply(from, 'ngapain tag Thoriq?\npc aja kali sabii', id).then(() => {
+			urbae.reply(from, 'Did you tagged my owner?\njust pc him boi', id).then(() => {
 				urbae.sendFileFromUrl(ownerNumber, pfp, 'img.jpg', `*Note Call*\n\n*From:* ${pushname}\n*Group:* ${name}\n*Nomor:* wa.me/${serial.replace(/@c.us/g, '')}\n*Text:* ${chats}`)
 			})
 		}
@@ -336,29 +336,29 @@ module.exports = HandleMsg = async (urbae, message) => {
 		}
 
 		const mess = {
-			grouponly: 'Fitur ini hanya bisa digunakan didalam Grup!',
-			restmes: 'Rest API sedang error',
-			sendfileaudio: '*_Tunggu sebentar, audio sedang dikirim_*',
-			sendfilevideo: '*_Tunggu sebentar, video sedang dikirim_*',
+			grouponly: 'This feature can only be used in Groups!',
+			restmes: 'Rest API is crashing',
+			sendfileaudio: '*_Wait a minute, audio is being sent_*',
+			sendfilevideo: '*_Wait a minute, the video is being sent_*',
 			wait: '_Waitt, lemme process this shit_',
-			nsfwnoton: 'Fitur NSFW belum aktif pada chat ini',
-			nsfwalready: 'Fitur NSFW sudah aktif sebelumnya di grup ini',
-			nsfwoff: 'Fitur NSFW berhasil dimatikan',
-			nsfwon: 'Fitur NSFW berhasil diaktifkan',
-			prem: `Command Premium!\nHalo ${pushname} Mau menjadi user premium? ga mahal kok bang\n\n20rb = PREMIUM SAMPE KIAMAT\n\nJika anda berminat, silahkan chat pada Owner\n\nwa.me/${ownerNumber.replace('@c.us', '')}\n\nTrims~\n-Thoriq Azzikra`,
+			nsfwnoton: 'The NSFW feature is not active in this chat',
+			nsfwalready: 'The NSFW feature is already active in this group',
+			nsfwoff: 'NSFW feature has been successfully turned off',
+			nsfwon: 'NSFW feature activated successfully',
+			prem: `Command Premium!\nHello ${pushname} Want to become a premium user? it's not expensive bro\n\nJust send your nudes to owner\n\nIf you are interested, please chat with the owner\n\nwa.me/${ownerNumber.replace('@c.us', '')}\n\nThanks~\n-SamKiraKun`,
 			error: {
-				St: `[❗] Kirim gambar dengan caption *${prefix}sticker* atau tag gambar yang sudah dikirim`,
-				Ti: `[❗] Replay sticker dengan caption *${prefix}stickertoimg* atau tag sticker yang sudah dikirim`,
-				Qm: '[❗] Terjadi kesalahan, mungkin themenya tidak tersedia!',
-				Yt3: '[❗] Terjadi kesalahan, tidak dapat meng konversi ke mp3!',
-				Yt4: '[❗] Terjadi kesalahan, mungkin error di sebabkan oleh sistem.',
-				Ig: '[❗] Terjadi kesalahan, mungkin karena akunnya private',
-				Ki: '[❗] Bot tidak bisa mengeluarkan Admin group!',
-				Sp: '[❗] Bot tidak bisa mengeluarkan Admin',
-				Ow: '[❗] Bot tidak bisa mengeluarkan Owner',
-				Bk: '[❗] Bot tidak bisa memblockir Owner',
-				Ad: '[❗] Tidak dapat menambahkan target, mungkin karena di private',
-				Iv: '[❗] Link yang anda kirim tidak valid!'
+				St: `[❗] Send an image with the caption *${prefix}sticker* or tag the image that has been sent`,
+				Ti: `[❗] Reply sticker with caption *${prefix}stickertoimg* or sticker tag that has been sent`,
+				Qm: '[❗] An error occurred, maybe the theme is not available!',
+				Yt3: '[❗] An error occurred, cant convert to mp3!',
+				Yt4: '[❗] An error occurred, maybe the error was caused by the system.',
+				Ig: '[❗] An error occurred, maybe because the account is private',
+				Ki: '[❗] Bots cant remove group Admins!',
+				Sp: '[❗] Bot cant log Admin',
+				Ow: '[❗] Bot can not remove Owner',
+				Bk: '[❗] Bot can not block Owner',
+				Ad: '[❗] Can not add target, maybe because it is private',
+				Iv: '[❗] The link you sent is invalid!'
 			}
 		}
 
@@ -382,7 +382,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 		if (liststicker.includes(chats))
 			try {
 				const getstick = await fs.readFileSync('./media/pic/sticker/' + chats + '.jpeg', { encoding: "base64" })
-				await urbae.sendImageAsSticker(from, `data:image/jpeg;base64,${getstick.toString('base64')}`, { author: "Urbaeexyz", pack: chats, keepScale: true })
+				await urbae.sendImageAsSticker(from, `data:image/jpeg;base64,${getstick.toString('base64')}`, { author: "SamKiraKun", pack: chats, keepScale: true })
 			} catch {
 				urbae.reply(from, 'Maaf, sistem error', id)
 			}
@@ -449,14 +449,14 @@ module.exports = HandleMsg = async (urbae, message) => {
 					const getId = getAfkId(ment)
 					const getReason = getAfkReason(getId)
 					const getTime = getAfkTime(getId)
-					await urbae.reply(from, `*「 AFK MODE 」*\n\nSssttt! Orangnya lagi afk, jangan diganggu!\n➸ *Alasan*: ${getReason}\n➸ *Sejak*: ${getTime}`, id)
-					urbae.sendText(userId, `Seseorang telah tag anda bernama @{pushname}`)
+					await urbae.reply(from, `*「 AFK MODE 」*\n\nShhh! The person is still afk, don't disturb!\n➸ *Reason*: ${getReason}\n➸ *Since*: ${getTime}`, id)
+					urbae.sendText(userId, `Someone has tagged you named @{pushname}`)
 				}
 			}
 			if (checking && !isCmd) {
 				_afk.splice(sender.id, 1)
 				fs.writeFileSync('./lib/database/afk.json', JSON.stringify(_afk))
-				urbae.sendTextWithMentions(from, `*@${sender.id.replace(/@c.us/g, '')} SEKARANG TIDAK AFK*`)
+				urbae.sendTextWithMentions(from, `*@${sender.id.replace(/@c.us/g, '')} NOW NOT AFK*`)
 			}
 		}
 
