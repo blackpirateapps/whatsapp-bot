@@ -1324,24 +1324,24 @@ module.exports = HandleMsg = async (urbae, message) => {
 					if (args[0] == 'on') {
 						var cek = antilink.includes(chatId);
 						if (cek) {
-							return urbae.reply(from, '*Anti Group Link Detector* sudah aktif di grup ini', id) //if number already exists on database
+							return urbae.reply(from, '*Anti Group Link Detector* already active in this group', id) //if number already exists on database
 						} else {
 							antilink.push(chatId)
 							fs.writeFileSync('./lib/helper/antilink.json', JSON.stringify(antilink))
-							urbae.reply(from, '*[Anti Group Link]* telah di aktifkan\nSetiap member grup yang mengirim pesan mengandung link grup akan di kick oleh bot!', id)
+							urbae.reply(from, '*[Anti Group Link]* has been activated\nAny group member who sends a message containing a group link will be kicked by a bot!', id)
 						}
 					} else if (args[0] == 'off') {
 						var cek = antilink.includes(chatId);
 						if (!cek) {
-							return urbae.reply(from, '*Anti Group Link Detector* sudah non-aktif di grup ini', id) //if number already exists on database
+							return urbae.reply(from, '*Anti Group Link Detector* already inactive in this group', id) //if number already exists on database
 						} else {
 							let nixx = antilink.indexOf(chatId)
 							antilink.splice(nixx, 1)
 							fs.writeFileSync('./lib/helper/antilink.json', JSON.stringify(antilink))
-							urbae.reply(from, '*[Anti Group Link]* telah di nonaktifkan\n', id)
+							urbae.reply(from, '*[Anti Group Link]* has been disabled\n', id)
 						}
 					} else {
-						urbae.reply(from, `pilih on / off\n\n*[Anti Group Link]*\nSetiap member grup yang mengirim pesan mengandung link grup akan di kick oleh bot!`, id)
+						urbae.reply(from, `pilih on / off\n\n*[Anti Group Link]*\nAny group member who sends a message containing the group link will be kicked by a bot!`, id)
 					}
 					break
 				case prefix + 'inv':
@@ -1372,12 +1372,12 @@ module.exports = HandleMsg = async (urbae, message) => {
 					try {
 						const dp = await urbae.getProfilePicFromServer(quotedMsgObj.sender.id)
 						if (dp == undefined) {
-							var pfp = urbae.reply(from, 'Dia ini pemalu, mungkin sedang depresi tidak berani memasang foto profil', id)
+							var pfp = urbae.reply(from, 'He is shy, maybe he is depressed, he does not dare to post a profile picture', id)
 						} else {
 							var pfp = urbae.sendFileFromUrl(from, dp, 'profile.png')
 						}
 					} catch {
-						urbae.reply(from, 'Tidak ada foto profil/private', id)
+						urbae.reply(from, 'No profile/private photo', id)
 					}
 					break
 				case prefix + 'mystat': {
@@ -1401,7 +1401,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 					})
 					var adm = admins
 					if (ct == null) {
-						return await urbae.reply(from, 'Nomor WhatsApp tidak valid [ Tidak terdaftar di WhatsApp ]', id)
+						return await urbae.reply(from, 'Invalid WhatsApp number [ Not registered on WhatsApp ]', id)
 					} else {
 						const contact = ct.pushname
 						const dp = await urbae.getProfilePicFromServer(userid)
@@ -1412,7 +1412,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 							var pfp = dp
 						}
 						if (contact == undefined) {
-							var nama = 'gada namanya, mungkin wibu'
+							var nama = 'there is no name, maybe wibu'
 						} else {
 							var nama = contact
 						}
@@ -1426,7 +1426,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 					const mem = groupMembers
 					const aku = mem[Math.floor(Math.random() * mem.length)];
 					const kamu = mem[Math.floor(Math.random() * mem.length)];
-					const sapa = `Cieee... @${aku.replace(/[@c.us]/g, '')} (💘) @${kamu.replace(/[@c.us]/g, '')} baru jadian nih\nBagi pj nya dong`
+					const sapa = `Cieee... @${aku.replace(/[@c.us]/g, '')} (💘) @${kamu.replace(/[@c.us]/g, '')} this is new\nShare the pj please`
 					await urbae.sendTextWithMentions(from, sapa)
 					break
 
@@ -1494,17 +1494,17 @@ module.exports = HandleMsg = async (urbae, message) => {
 					urbae.reply(from, rindBkep.teks, id) // MFARELS
 					break
 				case prefix + 'join':
-					if (args.length == 0) return urbae.reply(from, `Jika kalian ingin mengundang bot kegroup silahkan invite atau dengan\nketik ${prefix}join [link group]`, id)
+					if (args.length == 0) return urbae.reply(from, `If you want to invite bots to a group, please invite or by typing ${prefix}join [link group]`, id)
 					if (!isPrem && !isOwnerB) return urbae.reply(from, `Chat owner buat joinin`, id)
 					let linkgrup = body.slice(6)
 					let islink = linkgrup.match(/(https:\/\/chat.whatsapp.com)/gi)
 					let chekgrup = await urbae.inviteInfo(linkgrup)
-					if (!islink) return urbae.reply(from, 'Maaf link group-nya salah! silahkan kirim link yang benar', id)
+					if (!islink) return urbae.reply(from, 'Sorry the group link is wrong! please send the correct link', id)
 					if (isPrem) {
 						await urbae.joinGroupViaLink(linkgrup)
 							.then(async () => {
-								await urbae.sendText(from, 'Berhasil join grup via link!')
-								await urbae.sendText(chekgrup.id, `what up y'all , I'm Urbae Bot. To find out the commands on this Bot type ${prefix}menu`)
+								await urbae.sendText(from, 'Successfully joined the group via the link!')
+								await urbae.sendText(chekgrup.id, `what up y'all , I'm Sam Bot. To find out the commands on this Bot type ${prefix}menu`)
 							})
 					} else {
 						let cgrup = await urbae.getAllGroups()
@@ -1512,15 +1512,15 @@ module.exports = HandleMsg = async (urbae, message) => {
 						if (cgrup.size < memberLimit) return urbae.reply(from, `Sorry, Bot wil not join if the group members do not exceed ${memberLimit} people`, id)
 						await urbae.joinGroupViaLink(linkgrup)
 							.then(async () => {
-								await urbae.reply(from, 'Berhasil join grup via link!', id)
+								await urbae.reply(from, 'Successfully joined the group via the link!', id)
 							})
 							.catch(() => {
-								urbae.reply(from, 'Gagal!', id)
+								urbae.reply(from, 'Failed!', id)
 							})
 					}
 					break
 				case prefix + 'wattpadstory':
-					if (args.length == 0) return urbae.reply(from, `Untuk mencari cerita dari wattpad! Gunakan ${prefix}wattpadstory url story\nContoh : ${prefix}wattpadstory https://www.wattpad.com/story/226120582-my-teacher-levi-x-student-reader`, id)
+					if (args.length == 0) return urbae.reply(from, `To search stories from wattpad! use ${prefix}wattpadstory url story\nContoh : ${prefix}wattpadstory https://www.wattpad.com/story/226120582-my-teacher-levi-x-student-reader`, id)
 					const wpstry = body.slice(14)
 					urbae.reply(from, mess.wait, id)
 					try {
@@ -1537,7 +1537,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 					}
 					break
 				case prefix + 'youwatch':
-					if (args.length == 0) return urbae.reply(from, `Mencari sebuah film drakor dari website You Watch!\nContoh : ${prefix}youwatch vagabond`, id)
+					if (args.length == 0) return urbae.reply(from, `Searching for a drama film from the You Watch website!\nExample : ${prefix}youwatch vagabond`, id)
 					await urbae.reply(from, mess.wait, id)
 					const youwatchsr = body.slice(10)
 					const dataurl = await axios.get(`https://bx-hunter.herokuapp.com/api/youwatchsearch?text=${youwatchsr}&apikey=${bxhunter}`)
@@ -1545,7 +1545,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 					const resultdata = dataapi.data
 					let ywtch = `*「 Y O U W A T C H 」*`
 					for (let i = 0; i < resultdata.length; i++) {
-						ywtch += `\n─────────────────\n\n• *Judul:* ${resultdata[i].title}\n• *Kategori:* ${resultdata[i].category}\n• *Url:* ${resultdata[i].source}\n`
+						ywtch += `\n─────────────────\n\n• *Title:* ${resultdata[i].title}\n• *Kategori:* ${resultdata[i].category}\n• *Url:* ${resultdata[i].source}\n`
 					}
 					await urbae.sendFileFromUrl(from, resultdata[0].image, 'img.jpg', ywtch, id)
 						.catch(err => {
@@ -1554,7 +1554,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 						})
 					break
 				case prefix + 'shopee':
-					if (args.length === 0) return urbae.reply(from, `Kirim perintah *${prefix}shopee [ Query ]*, Contoh : *${prefix}shopee HP Samsul a20*`, id)
+					if (args.length === 0) return urbae.reply(from, `Send orders *${prefix}shopee [ Query ]*, Contoh : *${prefix}shopee HP Samsul a20*`, id)
 					if (!isGroupMsg) return urbae.reply(from, `Perintah ini hanya bisa di gunakan dalam group!`, id)
 					const shopek = body.slice(8)
 					urbae.reply(from, mess.wait, id)
@@ -1563,15 +1563,15 @@ module.exports = HandleMsg = async (urbae, message) => {
 						const dataplay = dataplai.data.result
 						let shopeq = `*「 SHOPEE 」*\n\n*Hasil Pencarian : ${shopek}*\n`
 						for (let i = 0; i < dataplay.items.length; i++) {
-							shopeq += `\n─────────────────\n\n• *Nama* : ${dataplay.items[i].nama}\n• Harga* : ${dataplay.items[i].harga}\n• *Terjual* : ${dataplay.items[i].terjual}\n• *Lokasi Toko* : ${dataplay.items[i].shop_location}\n• *Deskripsi* : ${dataplay.items[i].description}\n• *Link Product : ${dataplay.items[i].link_product}*\n`
+							shopeq += `\n─────────────────\n\n• *Nama* : ${dataplay.items[i].nama}\n• Price* : ${dataplay.items[i].harga}\n• *Sold* : ${dataplay.items[i].terjual}\n• *Lokasi Toko* : ${dataplay.items[i].shop_location}\n• *Deskripsi* : ${dataplay.items[i].description}\n• *Link Product : ${dataplay.items[i].link_product}*\n`
 						}
 						await urbae.sendFileFromUrl(from, dataplay.items[0].image_cover, `shopee.jpg`, shopeq, id)
 					} catch (err) {
 						console.log(err)
 					}
 					break
-				case prefix + 'cuaca':
-					if (args.length == 0) return urbae.reply(from, `Untuk melihat cuaca pada suatu daerah\nketik: ${prefix}cuaca kab/kota nama kota/kab\nContoh Kabupaten: ${prefix}cuaca kab Bengkayang\nContoh Kota: ${prefix}cuaca kota Pontianak`, id)
+				case prefix + 'weather':
+					if (args.length == 0) return urbae.reply(from, `To see the weather for an area\ntype: ${prefix}cuaca district/city name of city/district\nExample of district: ${prefix}cuaca kab Bengkayang\nContoh Kota: ${prefix}cuaca kota Pontianak`, id)
 					const cuacaq = body.slice(7)
 					urbae.reply(from, mess.wait, id)
 					try {
@@ -1587,7 +1587,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 								urbae.reply(from, 'Maaf, daerah yang anda cari tidak tersedia')
 							})
 					} catch (err) {
-						urbae.reply(from, 'Maaf, daerah yang kamu cari tidak tersedia', id)
+						urbae.reply(from, 'Sorry, the area you are looking for is not available', id)
 						console.log(err)
 					}
 					break
@@ -1607,13 +1607,13 @@ module.exports = HandleMsg = async (urbae, message) => {
 					}
 					break
 				case prefix + 'playstore':
-					if (args.length === 0) return urbae.reply(from, `Kirim perintah *${prefix}playstore [ Query ]*, Contoh : *${prefix}playstore Mobile Legends*`)
+					if (args.length === 0) return urbae.reply(from, `Send orders *${prefix}playstore [ Query ]*, Example : *${prefix}playstore Mobile Legends*`)
 					const keywotp = body.slice(11)
 					urbae.reply(from, mess.wait, id)
 					try {
 						const dataplai = await axios.get(`https://api.zeks.me/api/sgplay?apikey=${apikeyvinz}&q=${keywotp}`)
 						const dataplay = dataplai.data
-						if (dataplay.status == false) return urbae.reply(from, 'Aplikasi yang kamu cari tidak dapat ditemukan atau mungkin Rest Api sedang error', id)
+						if (dataplay.status == false) return urbae.reply(from, 'The application you are looking for cannot be found or maybe Rest Api is in error', id)
 						const dataresultt = dataplay.result
 						let keluarplay = `*「 P L A Y S T O R E 」*`
 						for (let i = 0; i < dataresultt.length; i++) {
@@ -1626,12 +1626,12 @@ module.exports = HandleMsg = async (urbae, message) => {
 					break
 				case prefix + 'infoapp':
 				case prefix + 'infoapk':
-					if (args.length == 0) return urbae.reply(from, `Masukkan id aplikasi\nContoh : ${prefix}infoapp com.tencent.ig`, id)
+					if (args.length == 0) return urbae.reply(from, `Enter application id\nExample: ${prefix}infoapp com.tencent.ig`, id)
 					urbae.reply(from, mess.wait, id)
 					const idaplikasi = body.slice(9)
 					axios.get(`https://dapuhy-api.herokuapp.com/api/search/playstore-info?id=${idaplikasi}&apikey=${dapuhyapi}`)
 						.then(async (res) => {
-							if (res.data.status == false) return urbae.reply(from, 'id apk yang kamu cari tidak dapat ditemukan atau mungkin Rest Api sedang error', id)
+							if (res.data.status == false) return urbae.reply(from, 'The apk id you are looking for cannot be found or maybe Rest Api is in error', id)
 							await urbae.sendFileFromUrl(from, res.data.result.icon, '', `*App:* ${res.data.result.title}\n*Snippet:* ${res.data.result.snippet}\n*Version:* ${res.data.result.version}\n*Genre:* ${res.data.result.genre}\n*Price:* ${res.data.result.price}\n*Ratings:* ${res.data.result.rating}\n*User Ratings:* ${res.data.result.ratings}\n*Whatsnew:* ${res.data.result.whatsnew}\n*Desc:* ${res.data.result.description}`, id)
 						})
 						.catch(err => {
@@ -1648,7 +1648,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 					} else {
 						var profilepicc = getuserpicture
 					}
-					await urbae.sendFileFromUrl(ownerNumber, profilepicc, 'prof.jpg', `Laporan bug dari : *${pushname}*\nNomor : ${serial.replace('@c.us', '')}\n\nBug : *${reporter}*`, id)
+					await urbae.sendFileFromUrl(ownerNumber, profilepicc, 'prof.jpg', `Bug report from: *${pushname}*\nNumber : ${serial.replace('@c.us', '')}\n\nBug : *${reporter}*`, id)
 					urbae.reply(from, 'Laporan berhasil dikirim ke Owner Bot!', id)
 					break
 				case prefix + 'setgroupname':
@@ -1660,35 +1660,35 @@ module.exports = HandleMsg = async (urbae, message) => {
 					let halaman = global.page ? global.page : await urbae.getPage()
 					await halaman.evaluate((chatId, subject) =>
 						Store.WapQuery.changeSubject(chatId, subject), groupId, `${namagrup}`)
-					urbae.sendTextWithMentions(from, `Nama group telah diubah oleh admin @${sender.id.replace('@c.us', '')}\n\n• Before: ${sebelum}\n• After: ${namagrup}`)
+					urbae.sendTextWithMentions(from, `The group name has been changed by admin @${sender.id.replace('@c.us', '')}\n\n• Before: ${sebelum}\n• After: ${namagrup}`)
 					break
 				case prefix + 'setname':
-					if (!isOwnerB) return urbae.reply(from, `Perintah ini hanya bisa di gunakan oleh Owner Bot!`, id)
+					if (!isOwnerB) return urbae.reply(from, `This command can only be used by Owner Bot!`, id)
 					const setnem = body.slice(9)
 					await urbae.setMyName(setnem)
-					urbae.sendTextWithMentions(from, `Makasih Nama Barunya @${sender.id.replace('@c.us', '')} 😘`)
+					urbae.sendTextWithMentions(from, `Thanks for the new name @${sender.id.replace('@c.us', '')} 😘`)
 					break
 				case prefix + 'read':
 					if (!isGroupMsg) return urbae.reply(from, `Perintah ini hanya bisa di gunakan dalam group!`, id)
-					if (!quotedMsg) return urbae.reply(from, `Tolong Reply Pesan Bot`, id)
-					if (!quotedMsgObj.fromMe) return urbae.reply(from, `Tolong Reply Pesan Bot`, id)
+					if (!quotedMsg) return urbae.reply(from, `Please Reply Bot Message`, id)
+					if (!quotedMsgObj.fromMe) return urbae.reply(from, `Please Reply Bot Message`, id)
 					try {
 						const reader = await urbae.getMessageReaders(quotedMsgObj.id)
 						let list = ''
 						for (let pembaca of reader) {
 							list += `- @${pembaca.id.replace(/@c.us/g, '')}\n`
 						}
-						urbae.sendTextWithMentions(from, `Ngeread doangg.. Nimbrung kagaa\n${list}`)
+						urbae.sendTextWithMentions(from, `Just reading.. Come on, bro\n${list}`)
 					} catch (err) {
 						console.log(err)
-						urbae.reply(from, `Maaf, Belum Ada Yang Membaca Pesan Bot atau Mereka Menonaktifkan Read Receipts`, id)
+						urbae.reply(from, `Sorry, Nobody Reads Bot Messages Yet Or They Disabled Read Receipts`, id)
 					}
 					break
 				case prefix + 'setstatus':
-					if (!isOwnerB) return urbae.reply(from, `Perintah ini hanya bisa di gunakan oleh Owner Bot!`, id)
+					if (!isOwnerB) return urbae.reply(from, `This command can only be used by Owner Bot!`, id)
 					const setstat = body.slice(11)
 					await urbae.setMyStatus(setstat)
-					urbae.sendTextWithMentions(from, `Makasih Status Barunya @${sender.id.replace('@c.us', '')} 😘`)
+					urbae.sendTextWithMentions(from, `Thanks for the new status @${sender.id.replace('@c.us', '')} 😘`)
 					break
 				case prefix + 'botstat': {
 					const loadedMsg = await urbae.getAmountOfLoadedMessages()
@@ -1711,10 +1711,10 @@ module.exports = HandleMsg = async (urbae, message) => {
 							await urbae.reply(from, mess.wait, id)
 							const mediaData = await decryptMedia(quotedMsg, uaOverride)
 							const detmus = await identify(mediaData)
-							urbae.reply(from, `*Judul:* ${detmus.data.title}\n*Artis:* ${detmus.data.artists}\n*Album:* ${detmus.data.album}\n*Release Date:* ${detmus.data.release_date}`, id)
+							urbae.reply(from, `*Title:* ${detmus.data.title}\n*Artis:* ${detmus.data.artists}\n*Album:* ${detmus.data.album}\n*Release Date:* ${detmus.data.release_date}`, id)
 						} catch (err) {
 							console.log(err)
-							urbae.reply(from, 'Maaf, lagu tidak dapat ditemukan', id)
+							urbae.reply(from, 'Sorry, the song could not be found', id)
 						}
 					} else if (isMedia && type === 'video' || isMedia && type === 'mp4') {
 						try {
@@ -1724,7 +1724,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 							urbae.reply(from, `*Judul:* ${detmus.data.title}\n*Artis:* ${detmus.data.artists}\n*Album:* ${detmus.data.album}\n*Genre:* ${detmus.data.genre}\n*Release Date:* ${detmus.data.release_date}`, id)
 						} catch (err) {
 							console.log(err)
-							urbae.reply(from, 'Maaf, lagu tidak dapat ditemukan!', id)
+							urbae.reply(from, 'Sorry, the song could not be found!', id)
 						}
 					} else urbae.reply(from, `Post/reply audio atau video dengan caption ${whatsong}`, id)
 					break
@@ -1737,13 +1737,13 @@ module.exports = HandleMsg = async (urbae, message) => {
 						const imageBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
 						await urbae.sendImageAsSticker(from, imageBase64, StickerMetadata)
 					} else {
-						urbae.reply(from, 'Reply stikernya bang', id)
+						urbae.reply(from, 'Reply the sticker bro', id)
 					}
 					break
 				case prefix + 'take':
 				case prefix + 'takestick':
 					if (quotedMsg && quotedMsg.type == 'sticker' || quotedMsg && quotedMsg.type == 'image') {
-						if (!q.includes('|')) return await urbae.reply(from, `Untuk mengubah watermark sticker, reply sticker/image dengan caption ${prefix}take package_name | author_name\n\nContoh: ${prefix}takestick PUNYA GUA | videfikri`, id)
+						if (!q.includes('|')) return await urbae.reply(from, `To change the watermark sticker, reply to the sticker/image with the caption ${prefix}take package_name | author_name\n\nExample: ${prefix}takestick PUNYA GUA | videfikri`, id)
 						await urbae.reply(from, mess.wait, id)
 						const packnames = q.substring(0, q.indexOf('|') - 1)
 						const authors = q.substring(q.lastIndexOf('|') + 2)
@@ -1762,7 +1762,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 						const imageBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
 						await urbae.sendImageAsSticker(from, imageBase64, { author: `${authors}`, pack: `${packnames}` })
 					} else {
-						urbae.reply(from, 'format pesan salah om', id)
+						urbae.reply(from, 'wrong message format', id)
 					}
 					break
 				case prefix + 'stickergiffull':
@@ -1779,7 +1779,7 @@ module.exports = HandleMsg = async (urbae, message) => {
 								})
 						} catch (err) {
 							console.log(err)
-							urbae.reply(from, 'Durasi video terlalu panjang, mohon kecilkan sedikit\nminimal 9 detik', id)
+							urbae.reply(from, 'The length of the video is too long, please reduce it a bit\nminimum 9 seconds', id)
 						}
 					} else if (quotedMsg && quotedMsg.type === 'sticker' || quotedMsg && quotedMsg.type === 'video') {
 						urbae.reply(from, mess.wait, id)
@@ -1792,10 +1792,10 @@ module.exports = HandleMsg = async (urbae, message) => {
 								})
 						} catch (err) {
 							console.error(err)
-							await urbae.reply(from, `Ukuran video terlalu besar\nMaksimal size adalah 1MB!`, id)
+							await urbae.reply(from, `Video size is too large\nMaximum size is 1MB!`, id)
 						}
 					} else {
-						await urbae.reply(from, `Ukuran video terlalu besar`, id)
+						await urbae.reply(from, `Video size is too big`, id)
 					}
 					break
 				case prefix + 'stickergif':
